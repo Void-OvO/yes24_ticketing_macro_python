@@ -66,21 +66,28 @@ try:
         time.sleep(0.1)
         current_time = datetime.now()
 
-    # 직링 JavaScript 코드 실행
+    #JavaScript 코드 실행
     script = """
-    var url = 'http://ticket.yes24.com/Pages/Perf/Sale/PerfSaleProcess.aspx?IdPerf=46237';
-    var form = $("form");
-    var target = 'pop_perfsale';
+    const url = 'http://ticket.yes24.com/Pages/Perf/Sale/PerfSaleProcess.aspx?IdPerf=46237';
+    const form = $("<form>");
+    const target = 'pop_perfsale';
+
     window.open(url, target, "width=1000,height=700,resizable=yes,toolbar=yes,menubar=yes,location=yes");
-    form.attr('action', url);
-    form.attr('target', target);
-    form.attr('method', 'post');
-    var hiddenField = document.createElement("input");
-    hiddenField.setAttribute("type", "hidden");
-    hiddenField.setAttribute("name", "netfunnel_key");
-    hiddenField.setAttribute("value", '=39933EC3387A0E808C27A6052B281E34675B28D1901CB067D2395FFDDB4A47A664813F9747FDBBA628FBC1B2488570F0728AF4FC48B94415858ED65AE4320152F85E4183304A019577928D21AC1B5BCD0126B34E709F725ABC3F566B6A2423E038D03869938F9E7E0349B52349469DA52C312C302C30');
+
+    form.attr({
+      action: url,
+      target: target,
+      method: 'post'
+    });
+
+    const hiddenField = $("<input>", {
+      type: "hidden",
+      name: "netfunnel_key",
+      value: '=39933EC3387A0E808C27A6052B281E34675B28D1901CB067D2395FFDDB4A47A664813F9747FDBBA628FBC1B2488570F0728AF4FC48B94415858ED65AE4320152F85E4183304A019577928D21AC1B5BCD0126B34E709F725ABC3F566B6A2423E038D03869938F9E7E0349B52349469DA52C312C302C30"
+    });
+
     form.append(hiddenField);
-    document.body.append(form);
+    $("body").append(form);
     form.submit();
     """
     driver.execute_script(script)
